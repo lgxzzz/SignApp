@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="8a6bc6010f8adc089fe82d8bec715b30">
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="fd9dfacb9a9ee2b5573e14e2cfd2f6ff">
         </meta-data>
         <activity android:name=".SplashActivity"
             android:windowSoftInputMode="adjustPan"

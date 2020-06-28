@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.qrcode.sign.util.SharedPreferenceUtil;
-import com.smart.elevator.util.SharedPreferenceUtil;
 
 public class SQLiteDbHelper extends SQLiteOpenHelper {
 

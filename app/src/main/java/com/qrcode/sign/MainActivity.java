@@ -6,19 +6,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.smart.elevator.bean.User;
-import com.smart.elevator.data.DBManger;
-import com.smart.elevator.fragement.AboutFragment;
-import com.smart.elevator.fragement.ElevotarMgrFragment;
-import com.smart.elevator.fragement.ElevotarParamsMgrFragment;
-import com.smart.elevator.fragement.OperateTaskFragment;
-import com.smart.elevator.fragement.PersonMgrFragment;
-import com.smart.elevator.fragement.PlanFragment;
-import com.smart.elevator.fragement.QrcodeReportFragment;
-import com.smart.elevator.fragement.ReportFragment;
-import com.smart.elevator.fragement.SignFragment;
-import com.smart.elevator.fragement.TaskFragment;
-import com.smart.elevator.util.FragmentUtils;
+import com.qrcode.sign.bean.User;
+import com.qrcode.sign.data.DBManger;
+import com.qrcode.sign.fragement.AboutFragment;
+import com.qrcode.sign.fragement.StudentFragment;
+import com.qrcode.sign.fragement.TeacherFragment;
+import com.qrcode.sign.util.FragmentUtils;
+
 
 /***
  * 主页activity
@@ -27,10 +21,8 @@ import com.smart.elevator.util.FragmentUtils;
  * */
 public class MainActivity extends BaseActivtiy {
 
-    private BottomNavigationView mSysPersonBottomMenu;
-    private BottomNavigationView mReceptPersonBottomMenu;
-    private BottomNavigationView mRepairPersonBottomMenu;
-    private BottomNavigationView mReportPersonBottomMenu;
+    private BottomNavigationView mTeacherBottomMenu;
+    private BottomNavigationView mStudentBottomMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +36,10 @@ public class MainActivity extends BaseActivtiy {
 
     public void init(){
         User mUser = DBManger.getInstance(this).mUser;
-        mSysPersonBottomMenu = findViewById(R.id.sys_person_bottom_menu);
-        mReceptPersonBottomMenu = findViewById(R.id.recept_person_bottom_menu);
-        mRepairPersonBottomMenu = findViewById(R.id.repair_person_bottom_menu);
-        mReportPersonBottomMenu = findViewById(R.id.report_person_bottom_menu);
+        mTeacherBottomMenu = findViewById(R.id.teacher_bottom_menu);
+        mStudentBottomMenu = findViewById(R.id.student_bottom_menu);
 
-
-        mSysPersonBottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        mTeacherBottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 showFragment(item.getItemId());
@@ -59,24 +48,7 @@ public class MainActivity extends BaseActivtiy {
         });
 
 
-        mReceptPersonBottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                showFragment(item.getItemId());
-                return true;
-            }
-        });
-
-
-        mRepairPersonBottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                showFragment(item.getItemId());
-                return true;
-            }
-        });
-
-        mReportPersonBottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        mStudentBottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 showFragment(item.getItemId());
@@ -86,30 +58,14 @@ public class MainActivity extends BaseActivtiy {
 
         if (mUser!=null){
             String role = mUser.getRole();
-            if (role.equals("维保人员")){
-                mSysPersonBottomMenu.setVisibility(View.GONE);
-                mReceptPersonBottomMenu.setVisibility(View.GONE);
-                mReportPersonBottomMenu.setVisibility(View.GONE);
-                mRepairPersonBottomMenu.setVisibility(View.VISIBLE);
-                mRepairPersonBottomMenu.setSelectedItemId(R.id.bottom_menu_task);
-            }else if(role.equals("维保接待员")){
-                mSysPersonBottomMenu.setVisibility(View.GONE);
-                mReceptPersonBottomMenu.setVisibility(View.VISIBLE);
-                mRepairPersonBottomMenu.setVisibility(View.GONE);
-                mReportPersonBottomMenu.setVisibility(View.GONE);
-                mReceptPersonBottomMenu.setSelectedItemId(R.id.bottom_menu_report);
-            }else if(role.equals("维保系统管理员")){
-                mSysPersonBottomMenu.setVisibility(View.VISIBLE);
-                mReceptPersonBottomMenu.setVisibility(View.GONE);
-                mRepairPersonBottomMenu.setVisibility(View.GONE);
-                mReportPersonBottomMenu.setVisibility(View.GONE);
-                mSysPersonBottomMenu.setSelectedItemId(R.id.bottom_menu_elevotar);
-            } else if(role.equals("报修人员")){
-                mSysPersonBottomMenu.setVisibility(View.GONE);
-                mReceptPersonBottomMenu.setVisibility(View.GONE);
-                mRepairPersonBottomMenu.setVisibility(View.GONE);
-                mReportPersonBottomMenu.setVisibility(View.VISIBLE);
-                mReportPersonBottomMenu.setSelectedItemId(R.id.bottom_menu_qr_report);
+            if (role.equals("老师")){
+                mStudentBottomMenu.setVisibility(View.GONE);
+                mTeacherBottomMenu.setVisibility(View.VISIBLE);
+                mTeacherBottomMenu.setSelectedItemId(R.id.bottom_menu_teacher_sign);
+            }else if(role.equals("学生")){
+                mStudentBottomMenu.setVisibility(View.VISIBLE);
+                mTeacherBottomMenu.setVisibility(View.GONE);
+                mStudentBottomMenu.setSelectedItemId(R.id.bottom_menu_stu_sign);
             }
         }
     }
@@ -121,35 +77,17 @@ public class MainActivity extends BaseActivtiy {
      */
     private void showFragment(int menu_id) {
         switch (menu_id){
-            case R.id.bottom_menu_sign:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, SignFragment.getInstance(),R.id.main_frame);
+            case R.id.bottom_menu_teacher_sign:
+                FragmentUtils.replaceFragmentToActivity(fragmentManager, TeacherFragment.getInstance(),R.id.main_frame);
                 break;
-            case R.id.bottom_menu_task:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, TaskFragment.getInstance(),R.id.main_frame);
-                break;
-            case R.id.bottom_menu_about:
+            case R.id.bottom_menu_teacher_about:
                 FragmentUtils.replaceFragmentToActivity(fragmentManager, AboutFragment.getInstance(),R.id.main_frame);
                 break;
-            case R.id.bottom_menu_elevotar:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, ElevotarMgrFragment.getInstance(),R.id.main_frame);
+            case R.id.bottom_menu_stu_sign:
+                FragmentUtils.replaceFragmentToActivity(fragmentManager, StudentFragment.getInstance(),R.id.main_frame);
                 break;
-            case R.id.bottom_menu_elevotar_params:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, ElevotarParamsMgrFragment.getInstance(),R.id.main_frame);
-                break;
-            case R.id.bottom_menu_person_manager:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, PersonMgrFragment.getInstance(),R.id.main_frame);
-                break;
-            case R.id.bottom_menu_report:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, ReportFragment.getInstance(),R.id.main_frame);
-                break;
-            case R.id.bottom_menu_operate_task:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, OperateTaskFragment.getInstance(),R.id.main_frame);
-                break;
-            case R.id.bottom_menu_plan:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, PlanFragment.getInstance(),R.id.main_frame);
-                break;
-            case R.id.bottom_menu_qr_report:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, QrcodeReportFragment.getInstance(),R.id.main_frame);
+            case R.id.bottom_menu_stu_about:
+                FragmentUtils.replaceFragmentToActivity(fragmentManager, AboutFragment.getInstance(),R.id.main_frame);
                 break;
         }
     }
