@@ -13,32 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.smart.elevator.R;
-import com.smart.elevator.adapter.ElevatorParamsAdapter;
-import com.smart.elevator.bean.ElevatorParams;
-import com.smart.elevator.constant.Constant;
-import com.smart.elevator.data.DBManger;
+import com.qrcode.sign.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /***
- * 管理员电梯信息管理界面
+ * 学生签到界面
  *
  * */
 public class StudentFragment extends Fragment {
 
-    List<ElevatorParams> mEleParams = new ArrayList<>();
-
-    ListView mListView;
-
-    ElevatorParamsAdapter mAdapter;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragement_elevator_params, container, false);
+        View view =  inflater.inflate(R.layout.fragement_student, container, false);
         initView(view);
-        registerBroadcast();
         return view;
     }
 
@@ -47,16 +36,11 @@ public class StudentFragment extends Fragment {
     }
 
     public void initView(View view){
-        mListView = view.findViewById(R.id.ele_params_list);
-
-        mAdapter = new ElevatorParamsAdapter(getContext());
-        mListView.setAdapter(mAdapter);
 
     };
 
     public void initData(){
-        mEleParams = DBManger.getInstance(getContext()).getAllElevatorsParams();
-        mAdapter.setData(mEleParams);
+
     }
 
     @Override
@@ -65,17 +49,5 @@ public class StudentFragment extends Fragment {
         initData();
     }
 
-    public void registerBroadcast(){
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Constant.INTENT_REFRESH_DATA);
-        getContext().registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-                if (action.equals(Constant.INTENT_REFRESH_DATA)){
-                    initData();
-                }
-            }
-        },filter);
-    }
+
 }
