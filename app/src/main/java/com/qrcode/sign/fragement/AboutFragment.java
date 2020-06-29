@@ -11,14 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.smart.elevator.R;
-import com.smart.elevator.SearchElevatorActivity;
-import com.smart.elevator.TaskActivity;
-import com.smart.elevator.bean.User;
-import com.smart.elevator.data.DBManger;
+import com.qrcode.sign.R;
+import com.qrcode.sign.bean.User;
+import com.qrcode.sign.data.DBManger;
+
 
 /***
- * 维保人员个人信息界面
+ * 个人信息界面
  *
  * */
 public class AboutFragment extends Fragment {
@@ -74,37 +73,7 @@ public class AboutFragment extends Fragment {
 
             }
         });
-        mTaskCurrentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(getContext(), TaskActivity.class);
-                Bundle b = new Bundle();
-                b.putSerializable("state","当前任务");
-                intent.putExtras(b);
-                getContext().startActivity(intent);
-            }
-        });
-        mTaskHistoryBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(getContext(), TaskActivity.class);
-                Bundle b = new Bundle();
-                b.putSerializable("state","历史任务");
-                intent.putExtras(b);
-                getContext().startActivity(intent);
-            }
-        });
 
-        mSearchElevatorBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(getContext(), SearchElevatorActivity.class);
-                getContext().startActivity(intent);
-            }
-        });
     }
 
 
