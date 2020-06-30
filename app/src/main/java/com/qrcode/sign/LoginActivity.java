@@ -11,8 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.smart.elevator.bean.User;
-import com.smart.elevator.data.DBManger;
+import com.qrcode.sign.bean.User;
+import com.qrcode.sign.data.DBManger;
+
 
 /***
  * 登录activity

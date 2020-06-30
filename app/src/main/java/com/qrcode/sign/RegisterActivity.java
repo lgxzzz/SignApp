@@ -14,8 +14,9 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
-import com.smart.elevator.bean.User;
-import com.smart.elevator.data.DBManger;
+
+import com.qrcode.sign.bean.User;
+import com.qrcode.sign.data.DBManger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,10 +58,9 @@ public class RegisterActivity extends AppCompatActivity {
         mRoleSp = findViewById(R.id.user_role);
 
         final List<String> mRoles =new ArrayList<>();
-        mRoles.add("维保人员");
-        mRoles.add("维保接待员");
-        mRoles.add("维保系统管理员");
-        mRoles.add("报修人员");
+        mRoles.add("老师");
+        mRoles.add("学生");
+
 
         //选择用户角色
         SpinnerAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,mRoles);
