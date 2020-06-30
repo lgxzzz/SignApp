@@ -24,6 +24,7 @@ public class DBManger {
     public User mUser;
     public DataFactory mDataFactory;
     public static  DBManger instance;
+    public LatLng mPosition;
 
     public static DBManger getInstance(Context mContext){
         if (instance == null){
@@ -39,7 +40,7 @@ public class DBManger {
         mDataFactory.setMlistener(new DataFactory.IListener() {
             @Override
             public void onLonLat(LatLng mCurrentPosition) {
-
+                mPosition = mCurrentPosition;
             }
         });
     }

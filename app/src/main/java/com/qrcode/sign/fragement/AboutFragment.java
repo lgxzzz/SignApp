@@ -56,9 +56,6 @@ public class AboutFragment extends Fragment {
         mUserTel = view.findViewById(R.id.user_tel);
         mUserMail = view.findViewById(R.id.user_mail);
         mUpdateBtn = view.findViewById(R.id.user_update_btn);
-        mTaskCurrentBtn = view.findViewById(R.id.task_current_btn);
-        mTaskHistoryBtn = view.findViewById(R.id.task_history_btn);
-        mSearchElevatorBtn = view.findViewById(R.id.search_elevator_btn);
     };
 
     public void initData() {

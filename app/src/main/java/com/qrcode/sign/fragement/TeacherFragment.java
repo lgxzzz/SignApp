@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 
 import com.amap.api.maps.model.LatLng;
@@ -113,14 +114,21 @@ public class TeacherFragment extends Fragment {
     //生成二维码
     public void createQrcode(){
         try{
-            JSONObject object = new JSONObject();
-            object.put("course",mSelectCourse);
-            object.put("time",System.currentTimeMillis());
+            LatLng latLng = DBManger.getInstance(getContext()).mPosition;
+            if (latLng!=null){
+                JSONObject object = new JSONObject();
+                object.put("course",mSelectCourse);
+                object.put("time",System.currentTimeMillis());
+                object.put("location", latLng.longitude+","+latLng.latitude);
 
-            Bitmap bitmap = QRCodeUtil.createQRCodeBitmap(object.toString(),300,300);
-            if (bitmap!=null){
-                mQrcodeImg.setImageBitmap(bitmap);
+                Bitmap bitmap = QRCodeUtil.createQRCodeBitmap(object.toString(),300,300);
+                if (bitmap!=null){
+                    mQrcodeImg.setImageBitmap(bitmap);
+                }
+            }else{
+                Toast.makeText(getContext(), "当前未定位，请稍后重试", Toast.LENGTH_LONG).show();
             }
+
         }catch (Exception e){
             e.printStackTrace();
         }
